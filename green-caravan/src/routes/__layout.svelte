@@ -9,5 +9,5 @@
 	<slot />
 </main>
 <footer>
-	<p>The Green Caravan & Zain</p>
+	<p>Green Caravan & Zain</p>
 </footer>
