@@ -24,6 +24,7 @@
 
 <script>
 	export let data;
+	// import Forecast from '$lib/forecast.svelte';
 </script>
 
 <h1>Welcome</h1>
