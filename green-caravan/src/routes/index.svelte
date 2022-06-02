@@ -1,37 +1,27 @@
-<script context="module">
-	let longitude = 4.907986;
-	let latitude = 52.3591831;
+<img src="/green-caravan-car.svg" alt="" />
+<div>
+	<h1>Krijg inzicht in de duurzaamheid van laadpalen</h1>
+	<p>En word bewust van de hoeveelheid fossiele elektriciteit in laadpalen en maak zo een duurzamere keuze</p>
+</div>
+<a href="/scanner" class="primary">Scan QR code</a>
+<a href="/">Of gebruik mijn locatie</a>
 
-	// https://kit.svelte.dev/docs/loading
-	export async function load({ fetch }) {
-		const url = `https://ui-map.shellrecharge.com/api/map/v2/markers/${longitude - 0.05}/${longitude + 0.05}/${latitude - 0.05}/${latitude + 0.05}/15`;
-		const response = await fetch(url);
-		const data = await response.json();
-
-		if (response.ok) {
-			return {
-				props: {
-					data
-				}
-			};
-		}
-
-		return {
-			status: response.status
-		};
+<style>
+	div {
+		margin-top: 2rem;
+		margin-left: var(--margin-left);
 	}
-</script>
 
-<script>
-	export let data;
-	// import Forecast from '$lib/forecast.svelte';
-</script>
+	h1 {
+		font-size: 2.2rem;
+	}
 
-<h1>Welcome</h1>
-<ul>
-	{#each data as cs}
-		<li>
-			<a href="/">{cs.operatorName}</a>
-		</li>
-	{/each}
-</ul>
+	p {
+		width: 80%;
+		margin: 1rem 0 2rem 0;
+	}
+
+	a {
+		margin: 1rem auto;
+	}
+</style>

@@ -1,14 +1,17 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap");
+:root {
+  --primary-color: #4BCB8E;
+  --header-color: #2C2C2C;
+  --text-color: #858B88;
+  --margin-left: 2rem;
+}
+
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
-}
-
-body {
-  background-color: #4129A9;
+  font-family: 'Lato', sans-serif;
 }
 
 header, footer {
@@ -22,7 +25,37 @@ header, footer {
   color: white;
 }
 
+video {
+  width: 100vw;
+  height: 100vh;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+h1 {
+  font-weight: 900;
+  color: var(--header-color);
+}
+
+p, a {
+  font-size: 18px;
+  color: var(--text-color);
+}
+
 a {
+  display: block;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  text-decoration: none;
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+a.primary {
+  background-color: var(--primary-color);
   color: white;
+  padding: 1em 4em;
+  border-radius: 2em;
 }
 /*# sourceMappingURL=style.css.map */
