@@ -4,7 +4,7 @@
 	<p>En word bewust van de hoeveelheid fossiele elektriciteit in laadpalen en maak zo een duurzamere keuze</p>
 </div>
 <a href="/scanner" class="primary">Scan QR code</a>
-<a href="/">Of gebruik mijn locatie</a>
+<a href="/nearby">Of gebruik mijn locatie</a>
 
 <style>
 	div {
