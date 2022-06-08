@@ -1,18 +1,8 @@
 <script context="module">
 	// https://kit.svelte.dev/docs/loading
 	export async function load({ fetch }) {
-		let userLocation = { latitude: 52.0779193, longitude: 4.7562881 };
-		const url = `https://ui-map.shellrecharge.com/api/map/v2/markers/${userLocation.longitude - 0.05}/${userLocation.longitude + 0.05}/${userLocation.latitude - 0.05}/${userLocation.latitude + 0.05}/15`;
-		const response = await fetch(url, {
-			method: 'GET',
-			headers: {
-				'Access-Control-Allow-Origin': '*',
-				'Access-Control-Allow-Methods': 'PUT, POST, GET, DELETE, OPTIONS'
-			},
-			mode: 'cors'
-		});
+		const response = await fetch('api/ev.json');
 		const data = await response.json();
-
 		if (response.ok) {
 			return {
 				props: {
