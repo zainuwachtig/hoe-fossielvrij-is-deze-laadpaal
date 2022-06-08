@@ -7,7 +7,7 @@
 	},
 	"operatorName": "NewMotion",
 	"address": {
-		"streetAndNumber": "Maarssenbroeksedijk 33",
+		"streetAndNumber": "Maarssenbroek 33",
 		"postalCode": "3542 DM",
 		"city": "Utrecht",
 		"country": "NLD"
@@ -37,7 +37,7 @@
 					"tariff": {
 						"startFee": 0.0,
 						"perMinute": 0.0,
-						"perKWh": 0.0,
+						"perKWh": 0.37,
 						"currency": "EUR",
 						"updated": "2021-07-06T10:44:24Z",
 						"updatedBy": "TariffService",
