@@ -38,10 +38,9 @@
 				'Content-Type': 'application/json'
 			},
 			// Dit verstuurt wel naar de server als ik het als object er in zet, maar krijg undefined als ik userLocation doe?
-			body: JSON.stringify({ userLocation })
+			body: JSON.stringify(userLocation)
 		});
 		const locationJSON = await response.json();
-		console.log('hij verstuurt naar de server');
 	}
 
 	// https://svelte.dev/tutorial/onmount -> zodat eerst de DOM wordt geladen, anders werkt navigator niet.
@@ -52,7 +51,7 @@
 	export let data;
 </script>
 
-<button on:click={sendLocation} value="Geef toegang">Geef toegang</button>
+<button on:click={() => sendLocation(userLocation)}>Geef toegang</button>
 <ul>
 	{#each data as cs}
 		<li>
