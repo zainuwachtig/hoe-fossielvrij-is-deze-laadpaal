@@ -45,6 +45,18 @@
 			body: JSON.stringify(userLocation)
 		});
 		data = await response.json();
+		reverseGeocoding();
+	}
+
+	async function reverseGeocoding() {
+		await data.map((cs) => {
+			fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${cs.coordinates.longitude},${cs.coordinates.latitude}.json?access_token=${import.meta.env.MAPBOX_API_KEY}`)
+				.then((response) => response.json())
+				.then((data) => {
+					cs.name = `${data.features[0].text} ${data.features[0].address}`;
+					console.log(cs);
+				});
+		});
 	}
 
 	// https://svelte.dev/tutorial/onmount -> zodat eerst de DOM wordt geladen, anders werkt navigator niet.
@@ -60,6 +72,7 @@
 <ul>
 	{#each data as cs}
 		<li>
+			<p>{cs.name}</p>
 			<a href="/">{[cs.coordinates.latitude, cs.coordinates.longitude]}</a>
 		</li>
 	{/each}

@@ -47,7 +47,6 @@
 			{charger.evses[0].connectors[0].tariff.perKWh} per kW
 		</li>
 	</ul>
-	<a href="/comparable">lala</a>
 </div>
 <section class="facts">
 	<div>
@@ -129,7 +128,6 @@
 		background-color: var(--primary-color);
 		border-radius: 0 0 80% 80%;
 		z-index: -1;
-		transition: 0.5s;
 	}
 
 	.bubble * {
