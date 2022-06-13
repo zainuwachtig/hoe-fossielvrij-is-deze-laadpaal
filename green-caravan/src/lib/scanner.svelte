@@ -37,18 +37,21 @@
 		}, 1000);
 	}
 </script>
-
-<video bind:this={videoEl} />
-<div class="video-overlay" />
+<div class="camera">
+	<video bind:this={videoEl} />
+</div>
 
 <style>
-	div {
-		position: absolute;
-		top: 0;
-		background-color: black;
-		opacity: 0.6;
-		width: 100%;
-		height: 100%;
-		clip-path: polygon(0% 0%, 0% 100%, 25% 100%, 25% 25%, 75% 25%, 75% 50%, 25% 50%, 25% 100%, 100% 100%, 100% 0%);
-	}
+.camera::after {
+	content: '';
+	width: 20rem;
+  height: 20rem;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(var(--primary-color), var(--primary-color)) left top, linear-gradient(var(--primary-color), var(--primary-color)) left top, linear-gradient(var(--primary-color), var(--primary-color)) right top, linear-gradient(var(--primary-color), var(--primary-color)) right top, linear-gradient(var(--primary-color), var(--primary-color)) left bottom, linear-gradient(var(--primary-color), var(--primary-color)) left bottom, linear-gradient(var(--primary-color), var(--primary-color)) right bottom, linear-gradient(var(--primary-color), var(--primary-color)) right bottom;
+  background-repeat: no-repeat;
+  background-size: .5rem 6rem, 6rem .5rem;
+}
 </style>
