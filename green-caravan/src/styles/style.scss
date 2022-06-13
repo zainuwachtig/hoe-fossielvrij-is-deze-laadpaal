@@ -82,6 +82,36 @@ a {
 	}
 }
 
+.rain {
+	position: relative;
+	height: 70%;
+	overflow: hidden;
+	margin-top: 1rem;
+}
+
+.vallende {
+	display: inline-block;
+	transform: translate(0, var(--valafstand));
+	transition: 1s;
+	position: absolute;
+	left: var(--startpositie);
+	animation: vallen 10s linear;
+	animation-delay: var(--animation-delay);
+	top: -10%;
+}
+
+@keyframes vallen {
+	// from {top: -10%;}
+	// to {top: 110%}
+	from {transform: translateY( -10%)}
+	to { transform: translateY(90vh)}
+}
+
+body .rain .vergelijking-tonen {
+	opacity: 1;
+	transition: 11s;
+}
+
 @media only screen and (max-width: 30rem) {
 	body > * {
 		height: 100%;

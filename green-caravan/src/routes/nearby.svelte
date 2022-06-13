@@ -19,39 +19,44 @@
 
 <script>
 	import { onMount } from 'svelte';
+	export let data;
 
-	// Dit is de standaard value voor de post route -> werkt niet met json.stringify?
-	let userLocation = { latitude: 52.370877, longitude: 4.853705 };
+	// Dit is de standaard value
+	let userLocation = { latitude: 52.370877, longtitude: 4.853705 };
+	// let userLocation;
 
-	function getLocation() {
+	function getLocation(userLocation) {
 		navigator.geolocation.getCurrentPosition((position) => {
-			let userLocation = { latitude: position.coords.latitude, longtitude: position.coords.longitude };
+			userLocation = { latitude: position.coords.latitude, longtitude: position.coords.longitude };
 			console.log(userLocation);
+			return userLocation;
 		});
 	}
 
 	async function sendLocation(userLocation) {
+		// getLocation(userLocation);
+		console.log(userLocation);
 		const response = await fetch('api/ev.json', {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json'
 			},
-			// Dit verstuurt wel naar de server als ik het als object er in zet, maar krijg undefined als ik userLocation doe?
 			body: JSON.stringify(userLocation)
 		});
-		const locationJSON = await response.json();
+		data = await response.json();
 	}
 
 	// https://svelte.dev/tutorial/onmount -> zodat eerst de DOM wordt geladen, anders werkt navigator niet.
 	onMount(() => {
-		getLocation();
+		getLocation(userLocation);
 	});
-
-	export let data;
 </script>
 
-<button on:click={() => sendLocation(userLocation)}>Geef toegang</button>
+<section>
+	<p>Om de laadpalen in de buurt te vinden, hebben we eerst je locatie nodig. Klik hieronder om toegang te geven tot je locatie.</p>
+	<button on:click={() => sendLocation(userLocation)}>Geef toegang</button>
+</section>
 <ul>
 	{#each data as cs}
 		<li>
@@ -59,3 +64,36 @@
 		</li>
 	{/each}
 </ul>
+
+<style>
+	section {
+		width: 90%;
+		margin: 0 auto;
+		border: 2px solid #e7e7e7;
+		border-radius: 0.5rem;
+		padding: 1rem;
+		margin-top: 1rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	button {
+		background-color: var(--primary-color);
+		color: white;
+		padding: 1em 4em;
+		margin-top: 1rem;
+		border-radius: 2em;
+		border: none;
+		-webkit-box-shadow: 0 5px 20px #4bcb8d66;
+		box-shadow: 0 5px 20px #4bcb8d66;
+		transition: 0.2s;
+	}
+
+	button:hover,
+	button:focus {
+		opacity: 0.8;
+		transition: 0.2s;
+	}
+</style>

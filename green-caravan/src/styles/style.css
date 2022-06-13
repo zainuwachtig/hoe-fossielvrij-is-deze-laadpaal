@@ -91,6 +91,56 @@ a.primary {
           box-shadow: 0 5px 20px #4bcb8d66;
 }
 
+.rain {
+  position: relative;
+  height: 70%;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.vallende {
+  display: inline-block;
+  -webkit-transform: translate(0, var(--valafstand));
+          transform: translate(0, var(--valafstand));
+  -webkit-transition: 1s;
+  transition: 1s;
+  position: absolute;
+  left: var(--startpositie);
+  -webkit-animation: vallen 10s linear;
+          animation: vallen 10s linear;
+  -webkit-animation-delay: var(--animation-delay);
+          animation-delay: var(--animation-delay);
+  top: -10%;
+}
+
+@-webkit-keyframes vallen {
+  from {
+    -webkit-transform: translateY(-10%);
+            transform: translateY(-10%);
+  }
+  to {
+    -webkit-transform: translateY(90vh);
+            transform: translateY(90vh);
+  }
+}
+
+@keyframes vallen {
+  from {
+    -webkit-transform: translateY(-10%);
+            transform: translateY(-10%);
+  }
+  to {
+    -webkit-transform: translateY(90vh);
+            transform: translateY(90vh);
+  }
+}
+
+body .rain .vergelijking-tonen {
+  opacity: 1;
+  -webkit-transition: 11s;
+  transition: 11s;
+}
+
 @media only screen and (max-width: 30rem) {
   body > * {
     height: 100%;
