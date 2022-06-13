@@ -96,7 +96,7 @@
 			<div>
 				<h3>{nearbyCharger.operatorName}</h3>
 				<p>Max. power: {nearbyCharger.maxPower}</p>
-				<span>{nearbyCharger.status}</span>
+				<span class="{nearbyCharger.status}">{nearbyCharger.status}</span>
 			</div>
 		</li>
 	{/each}
@@ -239,6 +239,10 @@
 	.alternatives span {
 		font-weight: 800;
 		color: var(--primary-color);
+	}
+
+	.alternatives span.Occupied {
+		color: #ed4517;
 	}
 
 	.windmill {
