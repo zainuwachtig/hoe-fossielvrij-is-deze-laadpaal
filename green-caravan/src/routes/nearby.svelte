@@ -45,19 +45,21 @@
 			body: JSON.stringify(userLocation)
 		});
 		data = await response.json();
-		reverseGeocoding();
 	}
 
-	async function reverseGeocoding() {
-		await data.map((cs) => {
-			fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${cs.coordinates.longitude},${cs.coordinates.latitude}.json?access_token=${import.meta.env.MAPBOX_API_KEY}`)
-				.then((response) => response.json())
-				.then((data) => {
-					cs.name = `${data.features[0].text} ${data.features[0].address}`;
-					console.log(cs);
-				});
-		});
-	}
+	// async function reverseGeocoding() {
+	// 	await data.map((cs) => {
+	// 		fetch(
+	// 			`https://api.mapbox.com/geocoding/v5/mapbox.places/${cs.coordinates.longitude},${cs.coordinates.latitude}.json?access_token=pk.eyJ1IjoiYnV0dHoxIiwiYSI6ImNsNDVka2UwcTAwMzEzaWxnbDQ2cTZwMmYifQ.0pMJC9U0PPpu8m0krUrkVA`
+	// 		)
+	// 			.then((response) => response.json())
+	// 			.then((data) => {
+	// 				cs.name = `${data.features[0].text} ${data.features[0].address}`;
+	// 				console.log(cs);
+	// 			});
+	// 		console.log(data);
+	// 	});
+	// }
 
 	// https://svelte.dev/tutorial/onmount -> zodat eerst de DOM wordt geladen, anders werkt navigator niet.
 	onMount(() => {
