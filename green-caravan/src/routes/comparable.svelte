@@ -4,18 +4,12 @@
 	const createItem = (container) => {
 		const element = document.createElement('span');
 		let itemContent = document.createTextNode('🚬');
-		element.classList.add('vallende');
+		addClassProperties(element);
 		element.appendChild(itemContent);
 		container.appendChild(element);
-
-		// Deze class moet na 1 seconde gegeven worden, zodat ze bovenaan beginnen
-		setTimeout(addClassProperties(element), 3000);
 	};
 
 	const addClassProperties = (element) => {
-		// let valAfstand = Math.floor(Math.random() * 100);
-		// element.style.setProperty('--valafstand', `${valAfstand}px`);
-
 		let animationDelay = Math.random() * 14;
 		element.style.setProperty('--animation-delay', `${animationDelay}s`);
 
@@ -25,13 +19,13 @@
 		let fontSize = Math.floor(Math.random() * 200);
 		element.style.fontSize = `${fontSize}%`;
 
+		element.classList.add('vallende');
 		document.querySelector('.vergelijking').classList.add('vergelijking-tonen');
 	};
 
-	const letItRain = () => {
+	const letItRain = (itemAmount) => {
 		// Buiten de functie zodat die niet de hele tijd die query selector hoeft te doen (performance)
 		const container = document.querySelector('.rain');
-		let itemAmount = 1072;
 
 		for (let index = 0; index < itemAmount; index++) {
 			createItem(container);
@@ -40,7 +34,7 @@
 
 	onMount(() => {
 		// document.querySelector('body').addEventListener('click', letItRain);
-		letItRain();
+		letItRain(1072);
 	});
 </script>
 
