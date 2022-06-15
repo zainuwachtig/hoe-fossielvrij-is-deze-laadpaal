@@ -36,7 +36,18 @@
 			markup: 'plastic tasjes'
 		}]
 		const randomFact = facts[Math.floor(Math.random() * facts.length)]
-		console.log(randomFact)
+
+		const forecastRes = await fetch('/api/forecast.json');
+		const forecast = await forecastRes.json();
+
+		let totalEnergy = 0;
+		forecast.forEach(energy => {
+			totalEnergy += energy[1][0]._value
+		})
+		
+		const dirtyEnergy = forecast[1][1][0]._value + forecast[2][1][0]._value + forecast[5][1][0]._value
+		const sustainableEnergy = Math.floor(dirtyEnergy / totalEnergy * 100)
+
 
 		if (chargerRes.ok && nearbyChargersRes.ok && providerRes.ok) {
 			return {
@@ -44,7 +55,8 @@
 					charger,
 					nearbyChargers,
 					co2,
-					randomFact
+					randomFact,
+					sustainableEnergy
 				}
 			};
 		}
@@ -61,6 +73,7 @@
 	export let nearbyChargers;
 	export let co2;
 	export let randomFact
+	export let sustainableEnergy
 </script>
 
 <div class="bubble">
@@ -108,7 +121,7 @@
 				</clipPath>
 			</defs>
 		</svg>
-		<h3>67%</h3>
+		<h3>{sustainableEnergy}%</h3>
 		<p>Is momenteel duurzame energie</p>
 	</div>
 	<div>
