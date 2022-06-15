@@ -22,18 +22,16 @@
 	export let data;
 
 	// Dit is de standaard value
-	let userLocation = { latitude: 52.370877, longtitude: 4.853705 };
-	// let userLocation;
+	// let userLocation = { latitude: 52.370877, longtitude: 4.853705 };
+	let userLocation;
 
-	function getLocation(userLocation) {
+	function getLocation() {
 		navigator.geolocation.getCurrentPosition((position) => {
 			userLocation = { latitude: position.coords.latitude, longtitude: position.coords.longitude };
-			console.log(userLocation);
-			return userLocation;
 		});
 	}
 
-	async function sendLocation(userLocation) {
+	async function sendLocation() {
 		// getLocation(userLocation);
 		console.log(userLocation);
 		const response = await fetch('api/ev.json', {
@@ -69,7 +67,7 @@
 
 <section>
 	<p>Om de laadpalen in de buurt te vinden, hebben we eerst je locatie nodig. Klik hieronder om toegang te geven tot je locatie.</p>
-	<button on:click={() => sendLocation(userLocation)}>Geef toegang</button>
+	<button on:click={() => sendLocation()}>Geef toegang</button>
 </section>
 <ul>
 	{#each data as cs}
