@@ -1,5 +1,5 @@
 // Dit is de standaardvalue voor als de gebruiker nog geen toegang heeft gegeven
-let userLocation = { latitude: 52.835358, longtitude: 6.897585 };
+let userLocation = { latitude: 52.835358, longitude: 6.897585 };
 
 const reverseGeocoding = async (data) => {
 	const newData = await data.map(async (cs) => {
@@ -8,7 +8,6 @@ const reverseGeocoding = async (data) => {
 		const geocodingData = await response.json();
 
 		cs.name = `${geocodingData.features[0].text} ${geocodingData.features[0].address}`;
-		// console.log(cs);
 		return cs;
 	});
 
@@ -16,7 +15,7 @@ const reverseGeocoding = async (data) => {
 };
 
 export const get = async () => {
-	const url = `https://ui-map.shellrecharge.com/api/map/v2/markers/${userLocation.longtitude - 0.05}/${userLocation.longtitude + 0.05}/${userLocation.latitude - 0.05}/${userLocation.latitude + 0.05}/15`;
+	const url = `https://ui-map.shellrecharge.com/api/map/v2/markers/${userLocation.longitude - 0.05}/${userLocation.longitude + 0.05}/${userLocation.latitude - 0.05}/${userLocation.latitude + 0.05}/15`;
 	const response = await fetch(url);
 	let data = await response.json();
 	data = await reverseGeocoding(data).then((result) => {
@@ -24,7 +23,6 @@ export const get = async () => {
 	});
 
 	if (response.ok) {
-		// console.log(data);
 		return {
 			status: 200,
 			body: data
@@ -39,14 +37,15 @@ export const get = async () => {
 // https://www.youtube.com/watch?v=J5sJJr4cNWs
 export const post = async ({ request }) => {
 	let userLocation = await request.json();
-	console.log(userLocation);
 
-	const url = `https://ui-map.shellrecharge.com/api/map/v2/markers/${userLocation.longtitude - 0.03}/${userLocation.longtitude + 0.03}/${userLocation.latitude - 0.03}/${userLocation.latitude + 0.03}/15`;
+	const url = `https://ui-map.shellrecharge.com/api/map/v2/markers/${userLocation.longitude - 0.05}/${userLocation.longitude + 0.05}/${userLocation.latitude - 0.05}/${userLocation.latitude + 0.05}/15`;
 	const response = await fetch(url);
-	const data = await response.json();
+	let data = await response.json();
+	// data = await reverseGeocoding(data).then((result) => {
+	// 	return result;
+	// });
 
 	if (response.ok) {
-		console.log(data);
 		return {
 			status: 200,
 			body: data
