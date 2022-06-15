@@ -88,7 +88,7 @@
 	</div>
 	<div>
 		<p>Dat is gelijk aan</p>
-		<h3>1072 sigaretten</h3>
+		<h3>3 uur douchen</h3>
 	</div>
 	<div>
 		<h3>49%</h3>
@@ -103,7 +103,7 @@
 			<div>
 				<h3>{nearbyCharger.operatorName}</h3>
 				<p>Max. power: {nearbyCharger.maxPower}</p>
-				<span>{nearbyCharger.status}</span>
+				<span class="{nearbyCharger.status}">{nearbyCharger.status}</span>
 			</div>
 		</li>
 	{/each}
@@ -166,6 +166,10 @@
 		grid-template-columns: 1fr 1fr;
 		grid-template-rows: 1fr 1fr 0.8fr;
 		gap: 0.75rem;
+	}
+
+	.facts h3 {
+		font-size: 1.5rem;
 	}
 
 	.facts div {
@@ -246,6 +250,10 @@
 	.alternatives span {
 		font-weight: 800;
 		color: var(--primary-color);
+	}
+
+	.alternatives span.Occupied {
+		color: #ed4517;
 	}
 
 	.windmill {

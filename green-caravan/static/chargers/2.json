@@ -7,9 +7,9 @@
 	},
 	"operatorName": "Vattenfall",
 	"address": {
-		"streetAndNumber": "Wibautstraat 2B",
-		"postalCode": "3542 DM",
-		"city": "Utrecht",
+		"streetAndNumber": "Singel 168",
+		"postalCode": "1015AH",
+		"city": "Amsterdam",
 		"country": "NLD"
 	},
 	"accessibility": {
@@ -31,13 +31,13 @@
 						"powerType": "AC1Phase",
 						"voltage": 230,
 						"amperage": 16,
-						"maxElectricPower": 3.7
+						"maxElectricPower": 11
 					},
 					"fixedCable": false,
 					"tariff": {
 						"startFee": 0.0,
 						"perMinute": 0.0,
-						"perKWh": 0.0,
+						"perKWh": 0.37,
 						"currency": "EUR",
 						"updated": "2021-07-06T10:44:24Z",
 						"updatedBy": "TariffService",
