@@ -10,13 +10,41 @@
 			}/15`
 		);
 		const nearbyChargers = await nearbyChargersRes.json();
-		console.log(nearbyChargers);
+		
+		const providerRes = await fetch('/api/providers.json');
+		const providers = await providerRes.json();
 
-		if (chargerRes.ok && nearbyChargersRes.ok) {
+		const co2 = (charger.operatorName === 'Vattenfall') ? Math.floor((providers[0][1][0]._value * 50 / 100)) /10 : Math.floor((providers[10][1][0]._value * 50 / 100)) /10
+		const facts = [{
+			co2g: 5000,
+			markup: 'uur douchen'
+		},
+		{
+			co2g: 14,
+			markup: 'sigaretten'
+		},
+		{
+			co2g: 23,
+			markup: 'theetjes'
+		},
+		{
+			co2g: 250,
+			markup: 'km vliegen'
+		},
+		{
+			co2g: 10,
+			markup: 'plastic tasjes'
+		}]
+		const randomFact = facts[Math.floor(Math.random() * facts.length)]
+		console.log(randomFact)
+
+		if (chargerRes.ok && nearbyChargersRes.ok && providerRes.ok) {
 			return {
 				props: {
 					charger,
-					nearbyChargers
+					nearbyChargers,
+					co2,
+					randomFact
 				}
 			};
 		}
@@ -31,7 +59,8 @@
 <script>
 	export let charger;
 	export let nearbyChargers;
-	// export let id
+	export let co2;
+	export let randomFact
 </script>
 
 <div class="bubble">
@@ -83,12 +112,12 @@
 		<p>Is momenteel duurzame energie</p>
 	</div>
 	<div>
-		<h3>15 KG CO<sub>2</sub></h3>
-		<p>Per gemiddelde laadsessie</p>
+		<h3>{co2}KG CO<sub>2</sub></h3>
+		<p>Per gemiddelde laadsessie (50kWh)</p>
 	</div>
 	<div>
 		<p>Dat is gelijk aan</p>
-		<h3>3 uur douchen</h3>
+		<h3>{Math.floor(co2 * 10000 / randomFact.co2g) / 10} {randomFact.markup}</h3>
 	</div>
 	<div>
 		<h3>49%</h3>

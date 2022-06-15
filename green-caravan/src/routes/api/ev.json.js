@@ -39,14 +39,14 @@ export const get = async () => {
 // https://www.youtube.com/watch?v=J5sJJr4cNWs
 export const post = async ({ request }) => {
 	let userLocation = await request.json();
-	console.log(userLocation);
+	// console.log(userLocation);
 
 	const url = `https://ui-map.shellrecharge.com/api/map/v2/markers/${userLocation.longtitude - 0.03}/${userLocation.longtitude + 0.03}/${userLocation.latitude - 0.03}/${userLocation.latitude + 0.03}/15`;
 	const response = await fetch(url);
 	const data = await response.json();
 
 	if (response.ok) {
-		console.log(data);
+		// console.log(data);
 		return {
 			status: 200,
 			body: data
