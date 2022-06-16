@@ -1,41 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-
-	const createItem = (container, emoji) => {
-		const element = document.createElement('span');
-		let itemContent = document.createTextNode(`${emoji}`);
-		addClassProperties(element);
-		element.appendChild(itemContent);
-		container.appendChild(element);
-	};
-
-	const addClassProperties = (element) => {
-		let animationDelay = Math.random() * 14;
-		element.style.setProperty('--animation-delay', `${animationDelay}s`);
-
-		let startPositie = Math.floor(Math.random() * 95);
-		element.style.setProperty('--startpositie', `${startPositie}%`);
-
-		let fontSize = Math.floor(Math.random() * 200);
-		element.style.fontSize = `${fontSize}%`;
-
-		element.classList.add('vallende');
-		document.querySelector('.vergelijking').classList.add('vergelijking-tonen');
-	};
-
-	const letItRain = (itemAmount, emoji) => {
-		// Buiten de functie zodat die niet de hele tijd die query selector hoeft te doen (performance)
-		const container = document.querySelector('.vergelijking');
-
-		for (let index = 0; index < itemAmount; index++) {
-			createItem(container, emoji);
-		}
-	};
-
-	onMount(() => {
-		// document.querySelector('body').addEventListener('click', letItRain(1072, '🚬'));
-		letItRain(1072, '🚬');
-	});
+	import Comparison from '../lib/comparison.svelte';
 </script>
 
 <div class="main">
@@ -43,37 +8,30 @@
 	<h1>Laadpaal</h1>
 	<p>Bij het opladen van je elektrische auto komen er fossiele brandstoffen vrij. Waar valt dat mee te vergelijken?</p>
 	<section class="rain">
-		<div class="vergelijking">
-			<p>15.000g CO2 is</p>
-			<h2>1.072 sigaretten</h2>
-		</div>
-		<div class="vergelijking">
-			<p>15.000g CO2 is</p>
-			<h2>1.072 theetjes</h2>
-		</div>
-		<div class="vergelijking">
-			<p>15.000g CO2 is</p>
-			<h2>3 uur douchen</h2>
-		</div>
+		<Comparison itemAmount={1072} itemName={'sigaretten'} itemEmoji={'🚬'} />
+		<Comparison itemAmount={653} itemName={'theetjes'} itemEmoji={'🫖'} />
+		<Comparison itemAmount={180} itemName={'minuten douchen'} itemEmoji={'🚿'} />
+		<Comparison itemAmount={60} itemName={'km vliegen'} itemEmoji={'✈️'} />
+		<Comparison itemAmount={1500} itemName={'plastic tasjes'} itemEmoji={'🛍'} />
 	</section>
 </div>
 
 <style>
 	.main {
 		background-color: var(--primary-color);
-		height: 100vh;
+		height: 100%;
 		padding-top: 3rem;
 	}
 
 	.rain {
-		height: 70%;
+		height: 78%;
 		margin-top: 1rem;
 		display: flex;
 		overflow-x: scroll;
+		scroll-snap-type: x mandatory;
 	}
 
 	h1,
-	h2,
 	p {
 		color: white;
 		text-align: center;
@@ -81,20 +39,12 @@
 		margin: 0 auto;
 	}
 
+	h1 {
+		margin: 0.5rem auto 0.75rem auto;
+	}
+
 	p:first-of-type {
 		opacity: 0.6;
 		font-size: 18px;
-	}
-
-	.vergelijking {
-		/* position: absolute;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%); */
-		z-index: 10;
-		color: white;
-		opacity: 0;
-		flex: 0 0 auto;
-		width: 100%;
 	}
 </style>
