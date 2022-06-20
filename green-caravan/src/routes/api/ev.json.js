@@ -38,17 +38,16 @@ export const get = async () => {
 export const post = async ({ request }) => {
 	let userLocation = await request.json();
 
-	const url = `https://ui-map.shellrecharge.com/api/map/v2/markers/${userLocation.longitude - 0.05}/${userLocation.longitude + 0.05}/${userLocation.latitude - 0.05}/${userLocation.latitude + 0.05}/15`;
+	const url = `https://ui-map.shellrecharge.com/api/map/v2/markers/${userLocation.longitude - 0.01}/${userLocation.longitude + 0.01}/${userLocation.latitude - 0.01}/${userLocation.latitude + 0.01}/20`;
 	const response = await fetch(url);
 	let data = await response.json();
-	// data = await reverseGeocoding(data).then((result) => {
-	// 	return result;
-	// });
+	let reversedData = await reverseGeocoding(data);
+	console.log(reversedData);
 
 	if (response.ok) {
 		return {
 			status: 200,
-			body: data
+			body: reversedData
 		};
 	}
 

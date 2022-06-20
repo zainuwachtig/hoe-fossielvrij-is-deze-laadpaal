@@ -19,7 +19,9 @@
 
 <script>
 	import { onMount } from 'svelte';
+	import { bind } from 'svelte/internal';
 	export let data;
+	export let button;
 
 	let userLocation;
 
@@ -50,12 +52,16 @@
 	// https://svelte.dev/tutorial/onmount -> zodat eerst de DOM wordt geladen, anders werkt navigator niet.
 	onMount(() => {
 		getLocation(userLocation);
+		const disableButton = () => {
+			button.disabled = false;
+		};
+		const timeOut = setTimeout(disableButton, 5000);
 	});
 </script>
 
 <section>
 	<p>Om de laadpalen in de buurt te vinden, hebben we eerst je locatie nodig. Klik hieronder om toegang te geven tot je locatie.</p>
-	<button on:click={() => sendLocation()}>Geef toegang</button>
+	<button disabled on:click={() => sendLocation()} bind:this={button}>Geef toegang</button>
 </section>
 <ul>
 	{#each data as cs}
@@ -102,6 +108,11 @@
 	button:focus {
 		opacity: 0.8;
 		transition: 0.2s;
+	}
+
+	button:disabled {
+		background-color: lightgray;
+		box-shadow: none;
 	}
 
 	ul {
