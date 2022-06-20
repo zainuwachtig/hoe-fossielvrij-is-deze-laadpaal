@@ -54,8 +54,9 @@
 		getLocation(userLocation);
 		const disableButton = () => {
 			button.disabled = false;
+			button.style.cursor = 'pointer';
 		};
-		const timeOut = setTimeout(disableButton, 5000);
+		const timeOut = setTimeout(disableButton, 4000);
 	});
 </script>
 
@@ -70,7 +71,7 @@
 				<span class="material-symbols-outlined"> bolt </span>
 				<div>
 					<h3>{cs.name}</h3>
-					<a href="/">{[cs.coordinates.latitude, cs.coordinates.longitude]}</a>
+					<!-- <a href="/">{[cs.coordinates.latitude, cs.coordinates.longitude]}</a> -->
 					<a href={`https://www.google.com/maps/search/?api=1&query=${cs.coordinates.latitude}%2C${cs.coordinates.longitude}`} target="_blank">Routebeschrijving</a>
 				</div>
 			</a>
