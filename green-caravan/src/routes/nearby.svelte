@@ -72,6 +72,7 @@
 				<div>
 					<h3>{cs.name}</h3>
 					<!-- <a href="/">{[cs.coordinates.latitude, cs.coordinates.longitude]}</a> -->
+					<span class={cs.status}>{cs.status}</span>
 					<a href={`https://www.google.com/maps/search/?api=1&query=${cs.coordinates.latitude}%2C${cs.coordinates.longitude}`} target="_blank">Routebeschrijving</a>
 				</div>
 			</a>
@@ -135,8 +136,13 @@
 		padding: 0.75rem;
 	}
 
-	ul li span {
+	ul li > a > span {
 		font-size: 3rem;
+	}
+
+	span.Occupied,
+	span.Unknown {
+		color: #ed4517;
 	}
 
 	ul li h3 {
