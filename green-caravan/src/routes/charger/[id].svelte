@@ -10,50 +10,52 @@
 			}/15`
 		);
 		const nearbyChargers = await nearbyChargersRes.json();
-		
+		const top5Chargers = nearbyChargers.slice(0, 5);
+
 		const providerRes = await fetch('/api/providers.json');
 		const providers = await providerRes.json();
 
-		const co2 = (charger.operatorName === 'Vattenfall') ? Math.floor((providers[0][1][0]._value * 50 / 100)) /10 : Math.floor((providers[10][1][0]._value * 50 / 100)) /10
-		const facts = [{
-			co2g: 5000,
-			markup: 'uur douchen'
-		},
-		{
-			co2g: 14,
-			markup: 'sigaretten'
-		},
-		{
-			co2g: 23,
-			markup: 'theetjes'
-		},
-		{
-			co2g: 250,
-			markup: 'km vliegen'
-		},
-		{
-			co2g: 10,
-			markup: 'plastic tasjes'
-		}]
-		const randomFact = facts[Math.floor(Math.random() * facts.length)]
+		const co2 = charger.operatorName === 'Vattenfall' ? Math.floor((providers[0][1][0]._value * 50) / 100) / 10 : Math.floor((providers[10][1][0]._value * 50) / 100) / 10;
+		const facts = [
+			{
+				co2g: 5000,
+				markup: 'uur douchen'
+			},
+			{
+				co2g: 14,
+				markup: 'sigaretten'
+			},
+			{
+				co2g: 23,
+				markup: 'theetjes'
+			},
+			{
+				co2g: 250,
+				markup: 'km vliegen'
+			},
+			{
+				co2g: 10,
+				markup: 'plastic tasjes'
+			}
+		];
+		const randomFact = facts[Math.floor(Math.random() * facts.length)];
 
 		const forecastRes = await fetch('/api/forecast.json');
 		const forecast = await forecastRes.json();
 
 		let totalEnergy = 0;
-		forecast.forEach(energy => {
-			totalEnergy += energy[1][0]._value
-		})
-		
-		const dirtyEnergy = forecast[1][1][0]._value + forecast[2][1][0]._value + forecast[5][1][0]._value
-		const sustainableEnergy = Math.floor(dirtyEnergy / totalEnergy * 100)
+		forecast.forEach((energy) => {
+			totalEnergy += energy[1][0]._value;
+		});
 
+		const dirtyEnergy = forecast[1][1][0]._value + forecast[2][1][0]._value + forecast[5][1][0]._value;
+		const sustainableEnergy = Math.floor((dirtyEnergy / totalEnergy) * 100);
 
 		if (chargerRes.ok && nearbyChargersRes.ok && providerRes.ok) {
 			return {
 				props: {
 					charger,
-					nearbyChargers,
+					top5Chargers,
 					co2,
 					randomFact,
 					sustainableEnergy
@@ -70,10 +72,10 @@
 
 <script>
 	export let charger;
-	export let nearbyChargers;
+	export let top5Chargers;
 	export let co2;
-	export let randomFact
-	export let sustainableEnergy
+	export let randomFact;
+	export let sustainableEnergy;
 </script>
 
 <div class="bubble">
@@ -91,7 +93,7 @@
 	</ul>
 </div>
 <section class="facts">
-	<div>
+	<a href="https://app.electricitymap.org/zone/NL" target="_blank">
 		<svg xmlns="http://www.w3.org/2000/svg" width="77" height="116" viewBox="0 0 77 116" fill="none">
 			<path
 				d="M48.125 113.414C48.1731 114.091 47.9325 114.743 47.4753 115.227C47.0181 115.71 46.3925 116 45.7188 116H31.2813C30.6075 116 29.9819 115.71 29.5247 115.227C29.0675 114.743 28.8269 114.091 28.875 113.414L32.725 59.2083C34.4816 59.9816 36.4547 60.4166 38.5 60.4166C40.5453 60.4166 42.5185 59.9816 44.275 59.2083L48.125 113.414Z"
@@ -123,30 +125,58 @@
 		</svg>
 		<h3>{sustainableEnergy}%</h3>
 		<p>Is momenteel duurzame energie</p>
-	</div>
-	<div>
+	</a>
+	<a href="/comparable" rel="external">
 		<h3>{co2}KG CO<sub>2</sub></h3>
 		<p>Per gemiddelde laadsessie (50kWh)</p>
-	</div>
-	<div>
+	</a>
+	<a href="/comparable" rel="external">
 		<p>Dat is gelijk aan</p>
-		<h3>{Math.floor(co2 * 10000 / randomFact.co2g) / 10} {randomFact.markup}</h3>
-	</div>
-	<div>
+		<h3>{Math.floor((co2 * 10000) / randomFact.co2g) / 10} {randomFact.markup}</h3>
+	</a>
+	<a href="https://www.greencrvn.com/forecast/" target="_blank">
 		<h3>49%</h3>
 		<p>CO2 bespaar je vandaag door te laden tussen 11:00 en 14:00</p>
-	</div>
+	</a>
 </section>
-<h2>Alternatieven de buurt</h2>
+<h2>Top 5 alternatieven de buurt</h2>
+<p>Vergelijk de CO<sub>2</sub> waardes en navigeer naar schonere laadpalen</p>
 <ul class="alternatives">
-	{#each nearbyChargers as nearbyCharger}
+	{#each top5Chargers as nearbyCharger, i}
 		<li>
-			<span class="material-symbols-outlined"> bolt </span>
-			<div>
-				<h3>{nearbyCharger.operatorName}</h3>
-				<p>Max. power: {nearbyCharger.maxPower}</p>
-				<span class="{nearbyCharger.status}">{nearbyCharger.status}</span>
+			<a href={`http://www.google.com/maps/place/${nearbyCharger.coordinates.latitude},${nearbyCharger.coordinates.longitude}`}>
+			{#if i < 2}
+				<div class="percentage">
+					<p class="percentage-text">11%</p>
+					<p class="percentage-desc">&#60; CO<sub>2</sub></p>
+				</div>
+			{:else if i < 3}
+			<div class="percentage">
+				<p class="percentage-text">9%</p>
+				<p class="percentage-desc">&#60; CO<sub>2</sub></p>
 			</div>
+				<!-- <span class="material-symbols-outlined bolt-2"> bolt </span> -->
+			{:else}
+			<div class="percentage">
+				<p class="percentage-text">7%</p>
+				<p class="percentage-desc">&#60; CO<sub>2</sub></p>
+			</div>
+				<!-- <span class="material-symbols-outlined bolt-3"> bolt </span> -->
+			{/if}
+			<div class="info">
+				<h3>{nearbyCharger.operatorName}</h3>
+				{#if i < 1}
+					<p>84m verwijderd</p>
+				{:else if i < 2}
+					<p>196m verwijderd</p>
+				{:else if i < 3}
+					<p>120m verwijderd</p>
+				{:else}
+					<p>240m verwijderd</p>
+				{/if}
+				<span class={nearbyCharger.status}>{nearbyCharger.status}</span>
+			</div>
+		</a>
 		</li>
 	{/each}
 </ul>
@@ -214,7 +244,9 @@
 		font-size: 1.5rem;
 	}
 
-	.facts div {
+	.facts a {
+		all: unset;
+		cursor: pointer;
 		padding: 0.75rem;
 		display: flex;
 		flex-direction: column;
@@ -222,40 +254,45 @@
 		justify-content: center;
 		text-align: center;
 		border-radius: 0.5rem;
+		transition: transform .3s;
 	}
 
-	.facts div p {
+	.facts a:hover {
+		transform: scale(1.02);
+	}
+
+	.facts a p {
 		font-size: 1rem;
 	}
 
-	.facts > div:nth-of-type(1) {
+	.facts > a:nth-of-type(1) {
 		background-color: var(--primary-color);
 		color: #fff;
 		grid-row-end: span 2;
 	}
 
-	.facts > div:nth-of-type(1) svg {
+	.facts > a:nth-of-type(1) svg {
 		width: 4rem;
 		margin-bottom: 1rem;
 		overflow: visible;
 	}
 
-	.facts > div:nth-of-type(1) p {
+	.facts > a:nth-of-type(1) p {
 		color: #fff;
 	}
 
-	.facts > div:not(:first-of-type) {
+	.facts > a:not(:first-of-type) {
 		border: 2px solid #e7e7e7;
 	}
 
-	.facts > div:nth-of-type(4) {
+	.facts > a:nth-of-type(4) {
 		grid-column-end: span 2;
 		flex-direction: row;
 		gap: 1rem;
 		text-align: left;
 	}
 
-	.facts > div:nth-of-type(4) h3 {
+	.facts > a:nth-of-type(4) h3 {
 		color: var(--primary-color);
 	}
 
@@ -263,30 +300,32 @@
 		margin-inline: 1rem;
 	}
 
-	.alternatives li {
+	.alternatives li a {
+		all: unset;
+		cursor: pointer;
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
 		border: 2px solid #e7e7e7;
 		border-radius: 0.5rem;
 		margin-bottom: 1rem;
 		padding: 0.75rem;
+		gap: 1rem;
+		transition: transform .3s;
 	}
 
-	.alternatives li > span:first-of-type {
-		font-size: 3rem;
-		/* color: var(--primary-color); */
+	.alternatives li a:hover {
+		transform: scale(1.02);
 	}
 
 	.alternatives h3 {
-		font-size: 1.5rem;
+		font-size: 1.14rem;
 		font-weight: 700;
 		margin-bottom: 0.1rem;
 	}
 
 	.alternatives p {
 		font-size: 0.9rem;
-		margin-bottom: 0.25rem;
+		margin-block: 0.2rem;
 	}
 
 	.alternatives span {
@@ -302,6 +341,34 @@
 		animation: rotate 8s ease infinite;
 		animation-delay: 2s;
 		transform-origin: 50% 39%;
+	}
+
+	h2 + p {
+		margin: -0.5rem 1rem 1rem;
+		font-size: 1.075rem;
+	}
+
+	.percentage {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		/* width: 6rem; */
+		flex-basis: 3rem;
+	}
+	.percentage .percentage-text {
+		font-size: 1.5rem;
+		color: var(--primary-color);
+		font-weight: 800;
+		margin-bottom: -.25rem;
+	}
+
+	.percentage .percentage-desc {
+		line-height: 1rem;
+		font-size: .8rem;
+		width: 3rem;
+		margin-bottom: 0;
 	}
 
 	@keyframes rotate {
