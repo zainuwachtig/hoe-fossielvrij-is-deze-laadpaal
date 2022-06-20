@@ -8,6 +8,7 @@
 - [Gebruikte API's](#gebruikte-API's)
 - [Opdrachtgever](#opdrachtgever)
 - [Contactpersonen](#contactpersonen)
+- [Wishlist](#wishlist)
 - [Licentie](#licentie)
 
 ## Design challenge
@@ -83,6 +84,14 @@ Want het elektriciteitssysteem in de meeste landen is een mix van fossielvrije (
 - [Victor Zumpolle](https://www.linkedin.com/in/victor-zumpolle-52260b113) van de Voorhoede, voor technische vragen.
 - [Tom Visser](tom.visser@gcrvn.com), van de Green Caravan, is product owner voor de software producten van Green Caravan. Hij stuurt nu het team aan dat de websites (greencrvn.com, www.co2smartcharging.com en
   app.co2smartcharging.com) en de native apps (for Android en ioS) ontwikkelt.
+
+## Wishlist
+
+Dingen waar we (nog) niet aan toegekomen zijn op basis van MoScoW.
+
+- [ ] Push notificaties met een Service Worker om de gebruiker een bericht te sturen met wat de beste tijd is om te laden, voor een prototype is dit alleen niet helemaal interessant en werkt ook alles behalve fijn om mee te testen.
+- [ ] Elementen in components zetten, we kregen dit niet helemaal aan de praat met het fetchen, maar zo kan de data ook meegenomen worden naar het vergelijkscherm om dat actueel te maken.
+- [ ] Optie om locaties te bookmarken, om locaties die je vaak bezoekt makkelijk terug te vinden of een locatie die je binnenkort wil bezoeken.
 
 ## Licentie
 
