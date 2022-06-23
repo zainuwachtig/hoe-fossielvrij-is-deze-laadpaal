@@ -37,6 +37,14 @@ Het kan natuurlijk zo zijn dat er geen QR code beschikbaar is, dan kan je ook aa
 
 De applicatie is gebouwd met [Sveltekit](https://kit.svelte.dev/), waar we voor het eerst mee hebben geëxperimenteerd.
 
+## Live demo
+Je kunt het prototype testen op: https://hoe-fossielvrij-is-deze-laadpaal.vercel.app/ De onderstaande QR codes kun je gebruiken om de functionaliteit te testen. Dit kan later voor alle laadpalen gedaan worden door de API key bij shell aan te vragen en simpelweg een QR code van het laadpaal id te maken.
+
+<p float="left">
+<img src="/assets/IMG_0715.jpg" width="24%" />
+<img src="/assets/IMG_0716.jpg" width="24%" />
+</p>
+
 ## Gebruikte API's
 
 - Om de QR codes te scannen is er gebruik gemaakt van de native [Barcode Detection API](https://developer.mozilla.org/en-US/docs/Web/API/Barcode_Detection_API). Helaas werkt deze API niet op Safari (en dus ook niet op IOS).
