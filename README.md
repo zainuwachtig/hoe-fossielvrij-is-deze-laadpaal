@@ -100,9 +100,3 @@ Dingen waar we (nog) niet aan toegekomen zijn op basis van MoScoW.
 - [ ] Push notificaties met een Service Worker om de gebruiker een bericht te sturen met wat de beste tijd is om te laden, voor een prototype is dit alleen niet helemaal interessant en werkt ook alles behalve fijn om mee te testen.
 - [ ] Elementen in components zetten, we kregen dit niet helemaal aan de praat met het fetchen, maar zo kan de data ook meegenomen worden naar het vergelijkscherm om dat actueel te maken.
 - [ ] Optie om locaties te bookmarken, om locaties die je vaak bezoekt makkelijk terug te vinden of een locatie die je binnenkort wil bezoeken.
-
-## Licentie
-
-![GNU GPL V3](https://www.gnu.org/graphics/gplv3-127x51.png)
-
-This work is licensed under [GNU GPLv3](./LICENSE).
